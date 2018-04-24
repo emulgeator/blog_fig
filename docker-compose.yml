@@ -1,0 +1,24 @@
+version: '3.1'
+services:
+  nginx:
+      build: ./docker/nginx
+      ports:
+          - 80:80
+      depends_on:
+          - php
+      volumes:
+          - .:/var/www/html
+
+  php:
+      build: ./docker/php
+      depends_on:
+          - mongo
+      volumes:
+          - .:/var/www/html:rw
+      external_links:
+          - mongo:mongo.local
+
+  mongo:
+      image: mongo:latest
+      ports:
+        - 27017:27017

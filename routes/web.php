@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',                     'BlogController@listPosts');
+Route::get('/create',               'AdminController@createPost');
+Route::get('/edit/{postId}',        'AdminController@editPost');
+Route::post('/save',                'AdminController@savePost');
+Route::post('/delete/{postId}',     'AdminController@deletePost');
+Route::post('/publish/{postId}',    'AdminController@publishPost');
+Route::post('/un-publish/{postId}', 'AdminController@unPublishPost');
+Route::get('/post/{postId}',        'BlogController@getPost');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
